@@ -88,6 +88,11 @@ class FirstDataHostedCheckout
 
     private function validateRecurrenceType($type)
     {
+        if($type == 'none' || !isset($type))
+        {
+            return 'none';
+        }
+
         if(!array_key_exists($type, $this->_config['recurrence_type']))
         {
             throw new Exception('Recurrence type does not exist in configuration.');

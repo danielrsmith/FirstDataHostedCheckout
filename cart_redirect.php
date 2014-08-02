@@ -10,18 +10,28 @@ if(!isset($config))
 
 $cart = new FirstDataHostedCheckout($config);
 
-if(isset($_GET['amount']))
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    $amount = floatval($_GET['amount']);
+    $input = $_POST;
+}
+else
+{
+    $input = $_GET;
+}
+
+
+if(isset($input['amount']))
+{
+    $amount = floatval($input['amount']);
 }
 else
 {
     die('Payment amount required.');
 }
 
-if(isset($_GET['item']))
+if(isset($input['item']))
 {
-    $item = trim($_GET['item']);
+    $item = trim($input['item']);
 }
 else
 {
@@ -29,11 +39,11 @@ else
 }
 
 
-if(isset($_GET['recurrence']) && isset($_GET['start_date']) && isset($_GET['end_date']))
+if(isset($input['recurrence']) && isset($input['start_date']) && isset($input['end_date']))
 {
-    $recurrence = trim($_GET['recurrence']);
-    $start = trim($_GET['start_date']);
-    $end = trim($_GET['end_date']);
+    $recurrence = trim($input['recurrence']);
+    $start = trim($input['start_date']);
+    $end = trim($input['end_date']);
 }
 else
 {
